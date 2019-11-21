@@ -104,7 +104,7 @@ class App extends React.Component{
     }
 
     handleTitle(e){
-        console.log(e.target.value)
+        console.log(process.env)
         if(!e){
             var title= this.state.title
         } else {
