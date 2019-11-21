@@ -19,14 +19,14 @@ class Memberpage extends React.Component{
         function memberInfo(){
         return axios({
             url: `https://api.propublica.org/congress/v1/members/${id}.json`,
-            headers: {'X-API-Key': API_KEY}
+            headers: {'X-API-Key': process.env.API_KEY}
             })
         }
             
         function voteInfo(){
            return axios({
             url: `https://api.propublica.org/congress/v1/members/${id}/votes.json`,
-            headers: {'X-API-Key': API_KEY}
+            headers: {'X-API-Key': process.env.API_KEY}
             })
         }
 

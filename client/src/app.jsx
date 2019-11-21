@@ -2,7 +2,6 @@ import React from 'react'
 import axios from 'axios'
 import Member from './member/member.jsx'
 import Memberpage from './memberpage/memberpage.jsx'
-import {API_KEY} from '../../config.js'
 import './app.css'
 
 const states = [
@@ -87,7 +86,7 @@ class App extends React.Component{
             var state = e.target.value
             axios({
                 url: `https://api.propublica.org/congress/v1/members/${this.state.title}/${state}/current.json`,
-                headers: {'X-API-Key': API_KEY}
+                headers: {'X-API-Key': process.env.API_KEY}
             })
             .then((res) => {
                 this.setState({
@@ -113,7 +112,7 @@ class App extends React.Component{
         }
         axios({
             url: `https://api.propublica.org/congress/v1/116/${title}/members.json`,
-            headers: {'X-API-Key': API_KEY}
+            headers: {'X-API-Key': process.env.API_KEY}
         })
         .then((res) => {
             console.log(res.data)
