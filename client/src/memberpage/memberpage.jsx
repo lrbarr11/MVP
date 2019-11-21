@@ -1,7 +1,6 @@
 import React from 'react'
 import axios from 'axios'
 import Committee from '../committee/committee.jsx'
-import {API_KEY} from '../../../config.js'
 import './memberpage.css'
 class Memberpage extends React.Component{
     constructor(props){
