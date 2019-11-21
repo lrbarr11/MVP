@@ -1,0 +1,30 @@
+.title-container{
+    display: flex;
+    width: 50%;
+    align-items: center;
+    justify-content: space-evenly;
+    padding-left: 25%;
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
+.label{
+    display: flex;
+    width: 160px;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.buttons{
+    display: flex;
+    width: 20%;
+    justify-content: space-around;
+}
+
+.member-list{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    align-items: center;
+    padding-left: 25%;
+}
