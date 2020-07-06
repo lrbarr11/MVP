@@ -13,7 +13,7 @@ const Modal = function(props){
                         if(sub.parent_committee_id === props.comId){
                             count++
                             return (
-                                <div>
+                                <div key={sub.code}>
                                     {sub.name}
                                 </div>
                             )

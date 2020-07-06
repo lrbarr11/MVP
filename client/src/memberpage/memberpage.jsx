@@ -2,11 +2,11 @@ import React from 'react'
 import axios from 'axios'
 import Committee from '../committee/committee.jsx'
 import './memberpage.css'
+
 class Memberpage extends React.Component{
     constructor(props){
         super(props)
         this.state={
-            id: this.props.id,
             member: [],
             vote: []
         }
@@ -31,8 +31,6 @@ class Memberpage extends React.Component{
 
         axios.all([memberInfo(), voteInfo()])
         .then(axios.spread((mInfo, vInfo) => {
-            console.log(vInfo)
-            console.log(mInfo)
             this.setState({
                 member: mInfo.data.results[0],
                 votes: vInfo.data.results[0].votes
@@ -58,7 +56,7 @@ class Memberpage extends React.Component{
                     <div className='committees-container'>
                         <div style={{fontWeight: 'bold', paddingTop: '5px', paddingBottom: '5px'}}>Committees:</div>
                         {this.state.member.roles[0].committees.map((committee) => {
-                            return <Committee roles={this.state.member.roles[0]} com={committee}/>
+                            return <Committee key={committee.code} roles={this.state.member.roles[0]} com={committee}/>
                         })}
                     </div>
                     <div className="vote-container">
@@ -69,13 +67,11 @@ class Memberpage extends React.Component{
                         </div>
                     {this.state.votes.map((vote) => {
                         return (
-                            <>
-                            <div className='vote-details-container'>
+                            <div key={vote.roll_call} className='vote-details-container'>
                                 <div style={{width: '70%'}}>{vote.description}</div>
                                 <div style={{width: '10%'}}>{vote.position}</div>
                                 <div style={{width: '20%'}}>{vote.result}</div>
                             </div>
-                            </>
                         )
                     })}
                     </div>

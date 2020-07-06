@@ -65,12 +65,14 @@ class App extends React.Component{
 
         this.state = {
             state: '',
-            list: []
+            list: [],
+            id: '',
+            chamber: ''
         }
         this.handleState = this.handleState.bind(this)
         this.handleNameClick = this.handleNameClick.bind(this)
         this.handleHome = this.handleHome.bind(this)
-        this.handleTitle = this.handleTitle.bind(this)
+        this.handleChamber = this.handleChamber.bind(this)
     }
 
     handleNameClick(id){
@@ -81,11 +83,11 @@ class App extends React.Component{
 
     handleState(e){
         if((e.target.value === "State") || (e.target.value === 'None')){
-            this.handleTitle()
+            this.handleChamber()
         } else {
             var state = e.target.value
             axios({
-                url: `https://api.propublica.org/congress/v1/members/${this.state.title}/${state}/current.json`,
+                url: `https://api.propublica.org/congress/v1/members/${this.state.chamber}/${state}/current.json`,
                 headers: {'X-API-Key': process.env.API_KEY}
             })
             .then((res) => {
@@ -103,21 +105,19 @@ class App extends React.Component{
         })
     }
 
-    handleTitle(e){
-        console.log(process.env)
+    handleChamber(e){
         if(!e){
-            var title= this.state.title
+            var chamber= this.state.chamber
         } else {
-            var title = e.target.value 
+            var chamber = e.target.value 
         }
         axios({
-            url: `https://api.propublica.org/congress/v1/116/${title}/members.json`,
+            url: `https://api.propublica.org/congress/v1/116/${chamber}/members.json`,
             headers: {'X-API-Key': process.env.API_KEY}
         })
         .then((res) => {
-            console.log(res.data)
             this.setState({
-                title,
+                chamber,
                 list: res.data.results[0].members
             })
         })
@@ -136,15 +136,15 @@ class App extends React.Component{
                 <>
                     <div className='buttons'>
                         <button onClick={this.handleHome}>Home</button>
-                        <select onClick={this.handleTitle}>
-                            <option>{this.state.title}</option>
+                        <select onClick={this.handleChamber}>
+                            <option>{this.state.chamber}</option>
                             <option value='house'>House</option>
                             <option value='senate'>Senate</option>}
                         </select>
                         <select onClick={this.handleState}>
                             {states.map((state) => {
                                 return (
-                                    <option value={state}>{state}</option>
+                                    <option key={state} value={state}>{state}</option>
                                 )
                             })}
                         </select>
@@ -166,8 +166,7 @@ class App extends React.Component{
                         <div className='member-list'>
                             {this.state.list.map((member) => {
                             return (
-                           
-                                <Member member={member} state={this.state.state} handleNameClick={this.handleNameClick} />
+                                <Member key={member.id} member={member} state={this.state.state} handleNameClick={this.handleNameClick} />
                             )
                         })}
                         </div>
@@ -175,14 +174,11 @@ class App extends React.Component{
                 )   
         } else {
             return (
-
-                <>
-            <select onChange={this.handleTitle}>
-                    <option value="default">Choose a Department</option>
-                    <option value="senate">Senate</option>
-                    <option value='house'>House</option>
+            <select onChange={this.handleChamber}>
+                    <option value="Default">Choose a Chamber</option>
+                    <option value="Senate">Senate</option>
+                    <option value='House'>House</option>
             </select>
-            </>
             )
         }
     }
