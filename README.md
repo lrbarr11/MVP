@@ -7,5 +7,5 @@
 * Add your API key to `.env` file.
 * `npm install`
 * `npx webpack`
-* `npm run start`
+* `npm start`
 * Go to http://localhost:3000/ in your browser.
