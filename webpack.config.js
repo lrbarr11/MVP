@@ -8,6 +8,7 @@ module.exports = {
         path: DIST_DIR,
         filename: 'bundle.js'
     },
+    mode: 'development',
     module: {
         rules: [
             {
@@ -27,5 +28,7 @@ module.exports = {
     resolve: {
         extensions: [".js", ".jsx"]
     },
-    plugins: [new Dotenv()]
+    plugins: [new Dotenv({
+        safe: true
+    })]
 }
