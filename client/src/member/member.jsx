@@ -1,22 +1,64 @@
-import React from 'react'
-import './member.css'
-import axios from 'axios'
+import React from 'react';
+import PropTypes from 'prop-types';
 
-const Member =  (props) => {
-    return(
-        <>
-        <div className='member-container' onClick={() => {
-            props.handleNameClick(props.member.id)
-        }}>
-            <div className='member name'> {props.member.last_name}, {props.member.first_name} </div>
-            <div className='member state'> {props.member.state || props.state} </div>
-            <div className='member title'>{props.member.title || props.member.role} </div>
-            <div className='member term'> {props.member.next_election}</div>
-        </div>
-            <div className='bar'/>
-        </>
-    )
-}
+import './member.css';
 
+const Member = ({ member, state, handleNameClick }) => (
+  <>
+    <div
+      className="member-container"
+      onClick={() => {
+        handleNameClick(member.id);
+      }}
+      onKeyDown={() => {
+        handleNameClick(member.id);
+      }}
+      role="button"
+      tabIndex="-1"
+    >
+      <div className="member name">
+        {' '}
+        {member.last_name}
+        ,
+        {' '}
+        {member.first_name}
+        {' '}
+      </div>
+      <div className="member state">
+        {' '}
+        {member.state || state}
+        {' '}
+      </div>
+      <div className="member title">
+        {member.title || member.role}
+        {' '}
+      </div>
+      <div className="member term">
+        {' '}
+        {member.next_election}
+      </div>
+    </div>
+    <div className="bar" />
+  </>
+);
 
-export default Member
+Member.propTypes = {
+  member: PropTypes.shape({
+    id: PropTypes.string,
+    last_name: PropTypes.string,
+    first_name: PropTypes.string,
+    state: PropTypes.string,
+    title: PropTypes.string,
+    role: PropTypes.string,
+    next_election: PropTypes.string,
+  }),
+  state: PropTypes.string,
+  handleNameClick: PropTypes.func.isRequired,
+};
+
+Member.defaultProps = {
+  member: null,
+  state: '',
+};
+
+export default Member;

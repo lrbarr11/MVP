@@ -1,31 +1,69 @@
-import React from 'react'
-import Modal from './Modal.jsx'
+import React from 'react';
+import PropTypes from 'prop-types';
+import Modal from './Modal';
 
-class Committee extends React.Component{
-    constructor(props){
-        super(props)
-        this.state = {
-            open: false
-        }
-        this.handleClick = this.handleClick.bind(this)
-    }
+class Committee extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: false,
+    };
+    this.handleClick = this.handleClick.bind(this);
+  }
 
-    handleClick(){
-        this.setState({
-            open: !this.state.open
-        })
-    }
-    
- 
-    render(){
-        return (
-        <>
-            <div style={{cursor: 'pointer', display: 'flex', justifyContent: 'center', paddingBottom: '5px'}} onClick={() => this.handleClick()}>
-                {this.props.com.name}
-            </div>
-            {(this.state.open) ? <Modal subs={this.props.roles.subcommittees} comId={this.props.com.code} handleClick={this.handleClick}/> : <div/>}
-        </>
-        )}
+  handleClick() {
+    let { open } = this.state;
+    open = !open;
+    this.setState({
+      open,
+    });
+  }
+
+  render() {
+    const { com, roles } = this.props;
+    const { open } = this.state;
+    return (
+      <>
+        <div
+          style={{
+            cursor: 'pointer', display: 'flex', justifyContent: 'center', paddingBottom: '5px',
+          }}
+          onClick={this.handleClick}
+          onKeyPress={this.handleClick}
+          role="button"
+          tabIndex="-1"
+        >
+          {com.name}
+        </div>
+        {open ? (
+          <Modal
+            subs={roles.subcommittees}
+            comId={com.code}
+            handleClick={this.handleClick}
+          />
+        ) : <div /> }
+      </>
+    );
+  }
 }
 
-export default Committee
+Committee.propTypes = {
+  com: PropTypes.shape({
+    name: PropTypes.string,
+    code: PropTypes.string,
+  }),
+  roles: PropTypes.shape({
+    subcommittees: PropTypes.arrayOf(PropTypes.shape({
+      code: PropTypes.string,
+      name: PropTypes.string,
+      parent_committee_id: PropTypes.string,
+    })),
+  }),
+};
+
+Committee.defaultProps = {
+  com: null,
+  roles: null,
+};
+
+export default Committee;
