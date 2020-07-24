@@ -6,7 +6,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server/index.js"
-    
   },
   "repository": {
     "type": "git",
@@ -25,6 +24,7 @@
     "express": "^4.17.1",
     "history": "^4.10.1",
     "nodemon": "^1.19.4",
+    "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-router-dom": "^5.1.2"
@@ -37,6 +37,12 @@
     "babel-install": "^2.1.0",
     "babel-loader": "^8.0.6",
     "css-loader": "^3.2.0",
+    "eslint": "^7.5.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-react": "^7.20.3",
+    "eslint-plugin-react-hooks": "^4.0.8",
     "style-loader": "^1.0.0",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10"
